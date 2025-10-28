@@ -145,7 +145,7 @@ pip install pyrtlsdr sounddevice numpy scipy --break-system-packages
 cd ~
 
 # Sklonuj repozytorium
-git clone https://github.com/twoj-username/ghost-box-pi.git
+git clone https://github.com/gazda12345kamil-dotcom/ghost-box-pi.git
 cd ghost-box-pi
 ```
 
