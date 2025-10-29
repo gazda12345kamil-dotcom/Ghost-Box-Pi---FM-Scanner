@@ -1,3 +1,4 @@
+
 # Ghost Box Pi - FM Scanner
 
 ![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)
@@ -9,10 +10,32 @@ Aplikacja do skanowania pasma FM (87.5-108 MHz) wykorzystująca RTL-SDR v4 na Ra
 ## Wymagania sprzętowe
 
 - **Raspberry Pi 5** (zalecane) lub Raspberry Pi 4
-- **RTL-SDR v4** (dongle USB)
+- **RTL-SDR v4** (dongle USB) - **TYLKO ORYGINAŁ!** ⚠️
 - **Oficjalny zasilacz** Raspberry Pi 5 (5V/5A USB-C)
 - Głośnik/słuchawki (HDMI, Jack 3.5mm lub Bluetooth)
 - Port USB 3.0 (niebieski) - zalecany dla RTL-SDR
+
+### ⚠️ Gdzie kupić oryginalny RTL-SDR v4?
+
+**BARDZO WAŻNE**: Na rynku jest wiele podróbek RTL-SDR, które mogą nie działać!
+
+**Oficjalne sklepy:**
+
+- 🔗 **Lista autoryzowanych sprzedawców**: <https://www.rtl-sdr.com/buy-rtl-sdr-dvb-t-dongles/>
+
+**Jak rozpoznać oryginał RTL-SDR Blog v4:**
+
+- ✅ Metalowa obudowa (niebieska lub srebrna)
+- ✅ Logo “RTL-SDR Blog” na obudowie
+- ✅ Złącze SMA (antena przykręcana)
+- ✅ Cena około $35-45 USD (ok. 140-180 PLN)
+
+**Oznaki podróbki:**
+
+- ❌ Brak logo “RTL-SDR Blog”
+- ❌ Plastikowa obudowa
+- ❌ Cena poniżej $25 USD
+- ❌ Sprzedawca nieznany na oficjalnej stronie
 
 ## Wymagania systemowe
 
@@ -129,7 +152,7 @@ sudo apt install -y libportaudio2 portaudio19-dev
 pip install pyrtlsdr sounddevice numpy scipy --break-system-packages
 ```
 
-**Instalowane biblioteki**:
+**Instalowane biblioteki:**
 
 - `pyrtlsdr` - komunikacja z RTL-SDR
 - `sounddevice` - odtwarzanie audio
@@ -165,7 +188,9 @@ cd ~/ghost-box-pi
 python3 ghostbox_fm.py
 ```
 
-### Interfejs użytkownika
+-----
+
+## Interfejs użytkownika
 
 Po uruchomieniu zobaczysz okno z:
 
@@ -181,11 +206,12 @@ Po uruchomieniu zobaczysz okno z:
 
 ### Problem 1: RTL-SDR nie jest wykrywany
 
-**Rozwiązanie**:
+**Rozwiązanie:**
 
 1. Sprawdź połączenie USB - użyj portu USB 3.0 (niebieskiego)
 1. Weryfikuj w systemie: `lsusb` - szukaj ID `0bda:2838`
 1. Sprawdź zasilanie - używaj oficjalnego zasilacza 5V/5A
+1. Sprawdź czy masz oryginał: <https://www.rtl-sdr.com/buy-rtl-sdr-dvb-t-dongles/>
 1. Odłącz i podłącz ponownie dongla
 1. Sprawdź blacklist: `cat /etc/modprobe.d/blacklist-rtl-sdr.conf`
 
@@ -193,19 +219,19 @@ Po uruchomieniu zobaczysz okno z:
 
 ### Problem 2: Brak dźwięku
 
-**Rozwiązanie**:
+**Rozwiązanie:**
 
-1. **Wybierz wyjście audio**:
+1. **Wybierz wyjście audio:**
 
 - Kliknij prawym przyciskiem ikonę głośnika na pasku zadań
 - Wybierz odpowiednie urządzenie (HDMI, Headphones, Bluetooth)
 
-1. **Sprawdź głośność systemową**:
+1. **Sprawdź głośność systemową:**
 
 - Kliknij lewym przyciskiem ikonę głośnika
 - Upewnij się, że głośność nie jest wyciszona
 
-1. **Test sounddevice**:
+1. **Test sounddevice:**
    
    ```python
    python3
@@ -218,7 +244,7 @@ Po uruchomieniu zobaczysz okno z:
    >>> sd.wait()
    >>> exit()
    ```
-1. **Użyj pavucontrol** (opcjonalnie):
+1. **Użyj pavucontrol (opcjonalnie):**
    
    ```bash
    sudo apt install pavucontrol
@@ -229,7 +255,7 @@ Po uruchomieniu zobaczysz okno z:
 
 ### Problem 3: Błędy podczas instalacji bibliotek
 
-**Rozwiązanie**:
+**Rozwiązanie:**
 
 1. Upewnij się, że zainstalowano wszystkie zależności systemowe
 1. Sprawdź połączenie internetowe
@@ -244,7 +270,7 @@ Po uruchomieniu zobaczysz okno z:
 
 ### Problem 4: Aplikacja zawiesza się lub działa wolno
 
-**Rozwiązanie**:
+**Rozwiązanie:**
 
 1. Sprawdź obciążenie CPU: `htop`
 1. Sprawdź temperaturę: `vcgencmd measure_temp`
@@ -256,7 +282,7 @@ Po uruchomieniu zobaczysz okno z:
 
 ### Problem 5: “Device or resource busy”
 
-**Rozwiązanie**:
+**Rozwiązanie:**
 
 1. Zamknij wszystkie programy SDR (SDR++, GQRX, CubicSDR)
 1. Odłącz i podłącz ponownie dongla
@@ -339,6 +365,8 @@ Zgłoszenia błędów, sugestie i pull requesty są mile widziane! Projekt jest 
 ## Kontakt
 
 W razie pytań lub problemów otwórz Issue na GitHubie.
+
+🔗 **Więcej informacji o RTL-SDR**: <https://www.rtl-sdr.com>
 
 -----
 
