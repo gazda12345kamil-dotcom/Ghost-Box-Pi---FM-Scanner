@@ -45,6 +45,9 @@ W pełni przebudowana, wielopasmowa wersja z nowoczesnym interfejsem:
 - ✅ **Miksowanie Pasm** - wybierz dowolną kombinację pasm do skanowania (np. FM + AIR)
 - ✅ **Zaawansowany Tłumik (Squelch)** - precyzyjny tłumik oparty na mocy sygnału
 - ✅ **Wiele Demodulatorów** (WBFM, AM, NBFM) dla najlepszej jakości dźwięku
+- ✅ **Nagrywanie Audio (REC)** - zapis sesji do plików .wav
+- ✅ **Sygnałomierz (S-Meter)** - wskaźnik siły sygnału na żywo
+- ✅ **Zapisywanie Ustawień** - aplikacja pamięta ostatnie ustawienia
 
 **Zalecana dla**: Zaawansowanych użytkowników, którzy chcą pełnej kontroli i dostępu do wszystkich pasm.
 
@@ -61,6 +64,9 @@ W pełni przebudowana, wielopasmowa wersja z nowoczesnym interfejsem:
 |Miksowanie Pasm          |❌                    |❌                    |✅ (Dowolna kombinacja)    |
 |Kontrola szumów (Squelch)|❌                    |✅ (Podstawowy)       |✅ (Zaawansowany)          |
 |Tryb losowy (Mix)        |❌                    |✅ (Tylko FM)         |✅ (Na wybranych pasmach)  |
+|Nagrywanie Audio (REC)   |❌                    |❌                    |✅                         |
+|Sygnałomierz (S-Meter)   |❌                    |❌                    |✅                         |
+|Zapisywanie Ustawień     |❌                    |❌                    |✅                         |
 
 💡 **Rekomendacja**: Jeśli chcesz skanować tylko FM, wybierz **V2**. Jeśli chcesz pełnych możliwości, skanowania AM, AIR i miksowania pasm, wybierz **Wersję PRO (v4)**.
 
@@ -217,10 +223,10 @@ pip install pyrtlsdr sounddevice numpy scipy --break-system-packages
 
 #### B) Dla Wersji PRO (v4):
 
-Ta komenda instaluje wszystko, łącznie z biblioteką nowoczesnego interfejsu:
+Ta komenda instaluje wszystko, czego potrzebujesz: customtkinter dla UI i soundfile do nagrywania.
 
 ```bash
-pip install pyrtlsdr sounddevice numpy scipy customtkinter --break-system-packages
+pip install pyrtlsdr sounddevice numpy scipy customtkinter soundfile --break-system-packages
 ```
 
 **Instalowane biblioteki:**
@@ -230,6 +236,7 @@ pip install pyrtlsdr sounddevice numpy scipy customtkinter --break-system-packag
 - `numpy` - operacje numeryczne
 - `scipy` - przetwarzanie sygnałów
 - `customtkinter` - **(TYLKO DLA V4)** nowoczesny interfejs graficzny
+- `soundfile` - **(TYLKO DLA V4)** zapisywanie plików audio .wav
 
 -----
 
@@ -310,12 +317,17 @@ Nowoczesny interfejs z rozszerzonymi funkcjami:
   - CB (26.965-27.405 MHz)
   - WX (162.400-162.550 MHz)
   - 2M-HAM (144-146 MHz)
+- **Sygnałomierz (S-Meter)** - Pasek postępu pokazujący siłę sygnału w czasie rzeczywistym
 - **Suwak Prędkości** - czas na częstotliwość (50-500 ms)
 - **Suwak Głośności** - poziom głośności (0-100%)
 - **Zaawansowany Suwak Tłumika (Squelch)** - precyzyjny próg mocy (0-100)
+- **Przyciski Kontrolne**:
+  - **START**: Rozpoczyna skanowanie
+  - **STOP**: Zatrzymuje skanowanie
+  - **REC 🔴**: Rozpoczyna nagrywanie audio. Przycisk zmienia się na “STOP ⏹”. Ponowne kliknięcie kończy nagrywanie i zapisuje plik .wav
 - **Checkbox “Mix (Losowo)”** - włącza tryb losowy dla wszystkich wybranych pasm
-- **Przyciski START/STOP** - kontrola skanowania
-- **Okno logów** - szczegółowe informacje o skanowaniu
+- **Okno logów** - Pokazuje komunikaty systemowe, błędy i status nagrywania
+- **Automatyczny zapis ustawień** - głośność, prędkość i wybrane pasma są zapamiętywane przy wyjściu
 
 -----
 
@@ -361,12 +373,6 @@ Nowoczesny interfejs z rozszerzonymi funkcjami:
    >>> sd.wait()
    >>> exit()
    ```
-1. **Użyj pavucontrol (opcjonalnie):**
-   
-   ```bash
-   sudo apt install pavucontrol
-   pavucontrol
-   ```
 
 -----
 
@@ -409,10 +415,22 @@ Nowoczesny interfejs z rozszerzonymi funkcjami:
 
 **Rozwiązanie:**
 
-Nie zainstalowałeś dodatkowej biblioteki dla Wersji PRO. Wykonaj polecenie:
+Nie zainstalowałeś biblioteki interfejsu. Wykonaj polecenie:
 
 ```bash
 pip install customtkinter --break-system-packages
+```
+
+-----
+
+### Problem 7: Błąd przy starcie V4: “No module named ‘soundfile’”
+
+**Rozwiązanie:**
+
+Nie zainstalowałeś biblioteki do nagrywania audio. Wykonaj polecenie:
+
+```bash
+pip install soundfile --break-system-packages
 ```
 
 -----
@@ -427,7 +445,6 @@ pip install customtkinter --break-system-packages
 - ✅ Demodulacja FM z automatyczną normalizacją audio
 - ✅ Interfejs graficzny (Tkinter)
 - ✅ System logowania zdarzeń
-- ✅ Bezpieczne zatrzymywanie z czyszczeniem zasobów
 
 ### Wersja Zaawansowana (V2) - wszystko powyżej plus:
 
@@ -442,14 +459,19 @@ pip install customtkinter --break-system-packages
 - ✅ **Pełne Miksowanie Pasm** (wybór checkboxami)
 - ✅ **Zaawansowane Filtrowanie DSP** dla każdego trybu
 - ✅ **Precyzyjny Tłumik (Squelch)** oparty na mocy sygnału
+- ✅ **Nagrywanie sesji audio (REC)** - zapis do plików .wav
+- ✅ **Wskaźnik siły sygnału (S-Meter)** - wizualizacja mocy sygnału
+- ✅ **Zapisywanie i wczytywanie ustawień** - automatyczne zapamiętywanie konfiguracji
 
 -----
 
 ## Konfiguracja
 
+### Konfiguracja Pasm
+
 Parametry można dostosować bezpośrednio w plikach `.py`.
 
-### Wersje v1 i v2 (`ghostbox_fm.py`, `ghostbox_fm_V2.py`):
+#### Wersje v1 i v2 (`ghostbox_fm.py`, `ghostbox_fm_V2.py`):
 
 ```python
 # Zakres częstotliwości FM
@@ -463,7 +485,7 @@ SDR_GAIN = 'auto'
 AUDIO_SAMPLE_RATE = 48000
 ```
 
-### Wersja PRO v4 (`ghostbox_pi_PRO_v4.py`):
+#### Wersja PRO v4 (`ghostbox_pi_PRO_v4.py`):
 
 ```python
 # Definicje Pasm (WBFM, AM, NBFM)
@@ -482,6 +504,16 @@ SDR_GAIN = 'auto'
 AUDIO_SAMPLE_RATE = 48000
 ```
 
+### Zapisane Ustawienia
+
+Wersja PRO (v4) automatycznie tworzy plik `ghostbox_config.json` w tym samym folderze. Przechowuje on:
+
+- Ostatnie pozycje suwaków (głośność, prędkość, squelch)
+- Stan pól wyboru pasm
+- Tryb losowy (Mix)
+
+Aby zresetować ustawienia do wartości domyślnych, wystarczy usunąć plik `ghostbox_config.json`.
+
 -----
 
 ## Wymagane biblioteki
@@ -494,6 +526,7 @@ AUDIO_SAMPLE_RATE = 48000
 - `numpy` - obliczenia numeryczne
 - `scipy` - przetwarzanie sygnałów
 - `customtkinter` - **(dla v4)** nowoczesny interfejs graficzny
+- `soundfile` - **(dla v4)** zapisywanie plików audio .wav
 
 ### Systemowe
 
