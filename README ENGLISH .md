@@ -139,13 +139,13 @@ sudo rm -rvf /usr/lib/librtlsdr* /usr/include/rtl-sdr* /usr/local/lib/librtlsdr*
 sudo apt-get install libusb-1.0-0-dev git cmake pkg-config build-essential
 ```
 
-**Install build tools:**
+**Get the source code:**
 ```bash
 git clone https://github.com/rtlsdrblog/rtl-sdr-blog
 cd rtl-sdr-blog/
 ```
 
-**Get the source code:**
+**Build and compile:**
 ```bash
 mkdir build
 cd build
