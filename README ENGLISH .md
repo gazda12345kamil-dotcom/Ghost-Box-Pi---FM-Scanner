@@ -153,7 +153,7 @@ cmake ../ -DINSTALL_UDEV_RULES=ON
 make
 ```
 
-**Build and compile:**
+**Install the drivers:**
 ```bash
 sudo make install
 sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
