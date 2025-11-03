@@ -142,33 +142,32 @@ sudo apt purge -y ^librtlsdr* ^rtl-sdr*
 sudo rm -rvf /usr/lib/librtlsdr* /usr/include/rtl-sdr* /usr/local/lib/librtlsdr* /usr/local/include/rtl-sdr* /usr/local/include/rtl_* /usr/local/bin/rtl_*
 ```
 
-**Install compilation tools:**
+Install build tools:
 
-```bash
-sudo apt install -y git cmake build-essential libusb-1.0-0-dev pkg-config
-```
+Bash
 
-**Download and compile drivers:**
+sudo apt-get install libusb-1.0-0-dev git cmake pkg-config build-essential
+Get the source code:
 
-```bash
-# Download source code
+Bash
+
 git clone https://github.com/rtlsdrblog/rtl-sdr-blog
-cd rtl-sdr-blog
+cd rtl-sdr-blog/
+Build and compile:
 
-# Prepare compilation
+Bash
+
 mkdir build
 cd build
-cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON
-
-# Compile (may take a few minutes)
+cmake ../ -DINSTALL_UDEV_RULES=ON
 make
+Install the drivers:
 
-# Install
+Bash
+
 sudo make install
 sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
 sudo ldconfig
-```
-
 **Block default DVB driver:**
 
 ```bash
