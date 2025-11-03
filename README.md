@@ -145,29 +145,30 @@ sudo rm -rvf /usr/lib/librtlsdr* /usr/include/rtl-sdr* /usr/local/lib/librtlsdr*
 **Zainstaluj narzędzia kompilacji:**
 
 ```bash
-sudo apt install -y git cmake build-essential libusb-1.0-0-dev pkg-config
+sudo apt-get install libusb-1.0-0-dev git cmake pkg-config build-essential
 ```
 
-**Pobierz i skompiluj sterowniki:**
-
+**Pobierz kod źródłowy:**
 ```bash
-# Pobierz kod źródłowy
 git clone https://github.com/rtlsdrblog/rtl-sdr-blog
-cd rtl-sdr-blog
+cd rtl-sdr-blog/
+```
 
-# Przygotuj kompilację
+**Przygotuj i skompiluj:**
+```bash
 mkdir build
 cd build
-cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON
-
-# Skompiluj (może potrwać kilka minut)
+cmake ../ -DINSTALL_UDEV_RULES=ON
 make
+```
 
-# Zainstaluj
+**Zainstaluj sterowniki:**
+```bash
 sudo make install
 sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
 sudo ldconfig
 ```
+
 
 **Zablokuj domyślny sterownik DVB:**
 
